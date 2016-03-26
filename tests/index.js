@@ -7,7 +7,7 @@ const dgram = require('dgram');
 function bindToUdpAndHandleMessage(port, messageHandler) {
     var udpClient = dgram.createSocket("udp4");
 
-	udpClient.bind(1234);
+	udpClient.bind(port);
 
 	udpClient.on("message", function messageReceived(msg) {
 		var data = msg.toString('utf-8');
