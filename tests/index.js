@@ -33,4 +33,20 @@ describe('sends logged event to specified UDP port', function() {
 
         log.info({ message: 'test log message' });
     });
+
+    it('logs message with level', done => {
+        const log = new Logger(logEvents => logEvents
+            .addLevelToAdditionalFields()
+            .subscribe('udp', { host: 'localhost', port: 1234 }));
+
+		bindToUdpAndHandleMessage(1234, parsedData => {
+    		parsedData.should.be.eql({
+    			message: 'test log message',
+                level: 'info'
+    		});
+            done();
+        });
+
+        log.info({ message: 'test log message', level: 'info' });
+    });
 });
