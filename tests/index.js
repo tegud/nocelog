@@ -2,36 +2,19 @@
 
 const should = require('should');
 const Logger = require('../lib/');
-const dgram = require('dgram');
 
-function bindToUdpAndHandleMessage(port, messageHandler) {
-    var udpClient = dgram.createSocket("udp4");
-
-	udpClient.bind(port);
-
-	udpClient.on("message", function messageReceived(msg) {
-		var data = msg.toString('utf-8');
-		var parsedData = JSON.parse(data);
-
-		messageHandler(parsedData);
-
-		udpClient.close();
-	});
-}
-
-describe('sends logged event to specified UDP port', function() {
+describe('sends logged events', function() {
     it('logs message', done => {
         const log = new Logger(logEvents => logEvents
-            .subscribe('udp', { host: 'localhost', port: 1234 }));
+            .subscribe(loggedData => {
+                loggedData.should.be.eql({
+                    message: 'test log message'
+                });
 
-		bindToUdpAndHandleMessage(1234, parsedData => {
-    		parsedData.should.be.eql({
-    			message: 'test log message'
-    		});
-            done();
-        });
+                done();
+            }));
 
-        log.info({ message: 'test log message' });
+            log.info({ message: 'test log message' });
     });
 
     describe('logs message with level', () => {
@@ -47,7 +30,7 @@ describe('sends logged event to specified UDP port', function() {
                     done();
                 }));
 
-                log.info({ message: 'test log message', level: 'info' });
+                log.info({ message: 'test log message' });
         });
 
         it('warn', done => {
@@ -62,7 +45,7 @@ describe('sends logged event to specified UDP port', function() {
                     done();
                 }));
 
-                log.warn({ message: 'test log message', level: 'warn' });
+                log.warn({ message: 'test log message' });
         });
 
 
@@ -78,7 +61,7 @@ describe('sends logged event to specified UDP port', function() {
                     done();
                 }));
 
-                log.error({ message: 'test log message', level: 'error' });
+                log.error({ message: 'test log message' });
         });
     });
 });
