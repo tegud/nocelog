@@ -38,15 +38,14 @@ describe('sends logged event to specified UDP port', function() {
         it('info', done => {
             const log = new Logger(logEvents => logEvents
                 .addLevelToAdditionalFields()
-                .subscribe('udp', { host: 'localhost', port: 1234 }));
-
-                bindToUdpAndHandleMessage(1234, parsedData => {
-                    parsedData.should.be.eql({
+                .subscribe(loggedData => {
+                    loggedData.should.be.eql({
                         message: 'test log message',
                         level: 'info'
                     });
+
                     done();
-                });
+                }));
 
                 log.info({ message: 'test log message', level: 'info' });
         });
@@ -54,15 +53,14 @@ describe('sends logged event to specified UDP port', function() {
         it('warn', done => {
             const log = new Logger(logEvents => logEvents
                 .addLevelToAdditionalFields()
-                .subscribe('udp', { host: 'localhost', port: 1234 }));
-
-                bindToUdpAndHandleMessage(1234, parsedData => {
-                    parsedData.should.be.eql({
+                .subscribe(loggedData => {
+                    loggedData.should.be.eql({
                         message: 'test log message',
                         level: 'warn'
                     });
+
                     done();
-                });
+                }));
 
                 log.warn({ message: 'test log message', level: 'warn' });
         });
@@ -71,15 +69,14 @@ describe('sends logged event to specified UDP port', function() {
         it('error', done => {
             const log = new Logger(logEvents => logEvents
                 .addLevelToAdditionalFields()
-                .subscribe('udp', { host: 'localhost', port: 1234 }));
-
-                bindToUdpAndHandleMessage(1234, parsedData => {
-                    parsedData.should.be.eql({
+                .subscribe(loggedData => {
+                    loggedData.should.be.eql({
                         message: 'test log message',
                         level: 'error'
                     });
+
                     done();
-                });
+                }));
 
                 log.error({ message: 'test log message', level: 'error' });
         });

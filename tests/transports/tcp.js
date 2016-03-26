@@ -1,7 +1,7 @@
 "use strict";
 
 const should = require('should');
-const Logger = require('../lib/');
+const Logger = require('../../lib/');
 const net = require('net');
 
 function bindToTcpAndHandleMessage(port, messageHandler) {

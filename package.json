@@ -25,5 +25,8 @@
     "mocha": "^2.4.5",
     "proxyquire": "^1.7.4",
     "should": "^8.2.2"
+  },
+  "dependencies": {
+    "lodash": "^4.6.1"
   }
 }
