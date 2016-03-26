@@ -1,0 +1,28 @@
+{
+  "name": "nocelog",
+  "version": "1.0.0",
+  "description": "Log objects not strings, in node.",
+  "main": "index.js",
+  "scripts": {
+    "test": "grunt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tegud/nocelog.git"
+  },
+  "author": "Steve Elliott",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tegud/nocelog/issues"
+  },
+  "homepage": "https://github.com/tegud/nocelog#readme",
+  "devDependencies": {
+    "eslint": "^2.4.0",
+    "grunt-eslint": "^18.0.0",
+    "grunt-mocha-cli": "^2.0.0",
+    "load-grunt-tasks": "^3.4.1",
+    "mocha": "^2.4.5",
+    "proxyquire": "^1.7.4",
+    "should": "^8.2.2"
+  }
+}
