@@ -17,6 +17,22 @@ describe('sends logged events', function() {
             log.info({ message: 'test log message' });
     });
 
+    it('logs message to multiple subscribers', done => {
+        let firstSubscriberCalled = false;
+
+        const log = new Logger(logEvents => logEvents
+            .subscribe(loggedData => {
+                firstSubscriberCalled = true;
+            })
+            .subscribe(loggedData => {
+                firstSubscriberCalled.should.be.eql(true);
+
+                done();
+            }));
+
+            log.info({ message: 'test log message' });
+    });
+
     describe('logs message with level', () => {
         it('info', done => {
             const log = new Logger(logEvents => logEvents
