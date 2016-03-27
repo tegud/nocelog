@@ -14,7 +14,7 @@ describe('sends logged events', function() {
                 done();
             }));
 
-            log.info({ message: 'test log message' });
+        log.info({ message: 'test log message' });
     });
 
     it('logs message to multiple subscribers', done => {
@@ -30,7 +30,27 @@ describe('sends logged events', function() {
                 done();
             }));
 
-            log.info({ message: 'test log message' });
+        log.info({ message: 'test log message' });
+    });
+
+    it('allows multiple logEvent definitions', done => {
+        const log = new Logger(logEvents => {
+            logEvents
+                .addLevelToAdditionalFields()
+                .addFields({ a: 1 })
+                .addFields({ b: 2 })
+                .addFields({ c: 3 })
+                .subscribe(loggedData => { });
+
+            logEvents
+                .subscribe(loggedData => {
+                    loggedData.should.be.eql({ message: 'test log message' });
+
+                    done();
+                });
+        });
+
+        log.info({ message: 'test log message' });
     });
 
     describe('logs message with level', () => {
@@ -61,7 +81,7 @@ describe('sends logged events', function() {
                     done();
                 }));
 
-                log.warn({ message: 'test log message' });
+            log.warn({ message: 'test log message' });
         });
 
 
@@ -77,7 +97,7 @@ describe('sends logged events', function() {
                     done();
                 }));
 
-                log.error({ message: 'test log message' });
+            log.error({ message: 'test log message' });
         });
     });
 });
